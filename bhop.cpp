@@ -82,14 +82,14 @@ struct offsets
 	DWORD dwGlowObjectManager = 0x52E81B0;
 	DWORD team = 0xF4;
 	DWORD glowIndex = 0xA438;
-	DWORD forceattack = 0x3183920;
+	DWORD forceattack = 0x31D1134;
 	DWORD crosshairid = 0xB3E4;
 	DWORD health = 0x100;
 	DWORD vecOrigin = 0x138;
 	DWORD itemdefindex = 0x2FAA;
 	DWORD activeweapon = 0x2EF8;
 	DWORD dwbonematrix = 0x26A8;
-	DWORD viewmatrix = 0x4D41B74;
+	DWORD viewmatrix = 0x4D914D4;
 	DWORD SpottedByMask = 0x980;
 	DWORD dwClientState_ViewAngles = 0x4D90;
 	DWORD dwclientstate = 0x58EFE4;
@@ -97,7 +97,7 @@ struct offsets
 	DWORD isdefusing = 0x3930;
 	DWORD bsendpackets = 0xD6E5A;
 	DWORD vecvelocity = 0x114;
-	DWORD m_bdormant = 0xED; 
+	DWORD m_bdormant = 0xED;
 	DWORD aimpunchangle = 0x302C;
 	DWORD m_szCustomName = 0x303C;
 
@@ -167,7 +167,7 @@ void settbdelay(float distance)
 	case 11: delay = 2; break; //g3 (T auto sniper)
 	default: delay = 0;
 	}
-	val.tbDelay = delay * distance;	
+	val.tbDelay = delay * distance;
 }
 void getourweapon()
 {
@@ -208,7 +208,7 @@ bool checkTBot()
 			return false;
 	}
 	else
-	return false;
+		return false;
 }
 
 
@@ -216,18 +216,18 @@ bool canbhop()
 {
 	vector playervec = MemClass.readMem<vector>(val.localPlayer + offset.vecvelocity);
 	int vel = playervec.x + playervec.y + playervec.z; //int instead of float 
-		if (vel != 0)
-			return true;
-		else
-			return false;
+	if (vel != 0)
+		return true;
+	else
+		return false;
 }
 
 
 void handleTBot()
 {
 
-		if (checkTBot())
-			shoot();
+	if (checkTBot())
+		shoot();
 }
 
 int main()
@@ -238,7 +238,7 @@ int main()
 	bool togglefakelag = false;
 	bool togglesp = false;
 	//INITIAL VALUES
-	system("start C:\\Windows\\memecheatspkg\\settings.exe"); 
+	system("start C:\\Windows\\memecheatspkg\\settings.exe");
 	val.process = MemClass.getProcess("csgo.exe"); //process
 	val.gameModule = MemClass.getModule(val.process, "client.dll"); //get module(dll) from process
 	val.localPlayer = MemClass.readMem<DWORD>(val.gameModule + offset.localplayer); //get the localplayer by addding offset to the game
@@ -252,166 +252,166 @@ int main()
 	val.armorvalue = MemClass.readMem<DWORD>(val.localPlayer + offset.armorvalue); //reassign armor value as well 
 
 	//INTRODUCTION
-std::cout << "meme cheat loaded successfully - made by asdjak" << std::endl;
-std::cout << "Do not load meme cheat unless you have already launched CSGO" << std::endl;
-std::cout << "Features: ESP, Noflash, Legit Bunnyhop, Fakelag" << std::endl;
-std::cout << "Controls:" << std::endl;
-std::cout << "Press X to toggle on ESP" << std::endl;
-std::cout << "HOLD C to use triggerbot" << std::endl;
-std::cout << "Hold space for Bhop" << std::endl;
-std::cout << "NUMPAD 1 is a panic button(stops cheat completely)" << std::endl;
-std::cout << "NUMPAD 3 refreshes values(usually if teamcolors for ESP are off, the offsets are off, and youll need to press this) "<< std::endl;
-std::cout << "NUMPAD 4 to turn on fakelag" << std::endl;
-std::cout << "HOLD DOWN NUMPAD 5 to turn OFF fakelag" << std::endl;
-std::cout << "NUMPAD 8 TOGGLES NOFLASH ON or OFF" << std::endl;
-//LOOP OF FEATURES
-while (true)
-{
-	DWORD glowObject = MemClass.readMem<DWORD>(val.gameModule + offset.dwGlowObjectManager);
-	int myTeam = MemClass.readMem<int>(val.localPlayer + offset.team);
-	//TOGGLE ESP
-	if (GetAsyncKeyState(KEY_X) & 1)
-		togglesp = !togglesp;
-	if (togglesp)
+	std::cout << "meme cheat loaded successfully - made by asdjak" << std::endl;
+	std::cout << "Do not load meme cheat unless you have already launched CSGO" << std::endl;
+	std::cout << "Features: ESP, Noflash, Legit Bunnyhop, Fakelag" << std::endl;
+	std::cout << "Controls:" << std::endl;
+	std::cout << "Press X to toggle on ESP" << std::endl;
+	std::cout << "HOLD C to use triggerbot" << std::endl;
+	std::cout << "Hold space for Bhop" << std::endl;
+	std::cout << "NUMPAD 1 is a panic button(stops cheat completely)" << std::endl;
+	std::cout << "NUMPAD 3 refreshes values(usually if teamcolors for ESP are off, the offsets are off, and youll need to press this) " << std::endl;
+	std::cout << "NUMPAD 4 to turn on fakelag" << std::endl;
+	std::cout << "HOLD DOWN NUMPAD 5 to turn OFF fakelag" << std::endl;
+	std::cout << "NUMPAD 8 TOGGLES NOFLASH ON or OFF" << std::endl;
+	//LOOP OF FEATURES
+	while (true)
 	{
+		DWORD glowObject = MemClass.readMem<DWORD>(val.gameModule + offset.dwGlowObjectManager);
+		int myTeam = MemClass.readMem<int>(val.localPlayer + offset.team);
+		//TOGGLE ESP
+		if (GetAsyncKeyState(KEY_X) & 1)
+			togglesp = !togglesp;
+		if (togglesp)
 		{
-			for (short int i = 0; i < 64; i++)
 			{
-				DWORD entity = MemClass.readMem<DWORD>(val.gameModule + offset.entityList + i * 0x10);
-				if (entity != NULL)
+				for (short int i = 0; i < 64; i++)
 				{
-					int glowIndx = MemClass.readMem<int>(entity + offset.glowIndex);
-					int entityTeam = MemClass.readMem<int>(entity + offset.team);
-					bool isdefuse = MemClass.readMem<bool>(entity + offset.isdefusing);
-					if (isdefuse)
+					DWORD entity = MemClass.readMem<DWORD>(val.gameModule + offset.entityList + i * 0x10);
+					if (entity != NULL)
 					{
-						MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x4), 255);
-						MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x8), 255);
-						MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0xC), 255);
-						MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x10), 1);
-					} //maybe this will workie
-					else
-					{
-						if (myTeam == entityTeam)
+						int glowIndx = MemClass.readMem<int>(entity + offset.glowIndex);
+						int entityTeam = MemClass.readMem<int>(entity + offset.team);
+						bool isdefuse = MemClass.readMem<bool>(entity + offset.isdefusing);
+						if (isdefuse)
 						{
-							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x4), 0); 
-							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x8), 0);
-							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0xC), 2);
+							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x4), 255);
+							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x8), 255);
+							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0xC), 255);
 							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x10), 1);
-						}
+						} //maybe this will workie
 						else
 						{
-							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x4), 2);
-							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x8), 0);
-							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0xC), 0);
-							MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x10), 1);
+							if (myTeam == entityTeam)
+							{
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x4), 0);
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x8), 0);
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0xC), 2);
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x10), 1);
+							}
+							else
+							{
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x4), 2);
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x8), 0);
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0xC), 0);
+								MemClass.writeMem<float>(glowObject + ((glowIndx * 0x38) + 0x10), 1);
+							}
 						}
+						MemClass.writeMem<bool>(glowObject + ((glowIndx * 0x38) + 0x24), true);
+						MemClass.writeMem<bool>(glowObject + ((glowIndx * 0x38) + 0x25), false);
 					}
-					MemClass.writeMem<bool>(glowObject + ((glowIndx * 0x38) + 0x24), true);
-					MemClass.writeMem<bool>(glowObject + ((glowIndx * 0x38) + 0x25), false);
+
 				}
-				
+			}
+
+		}
+
+		//TRIGGERBOT
+		if (GetAsyncKeyState(KEY_C) == KeyDOWN)
+		{
+			val.myteam = MemClass.readMem<int>(val.localPlayer + offset.team);
+			handleTBot();
+
+		}
+		//reset aimbot values when letting go of our key.
+		//if (GetAsyncKeyState(KEY_Z) == KeyUP)
+		//{
+			//val.bestentity = 0; //possibly redundant?
+			//val.distance = 10000; //redundant?
+		//}
+
+		//refresh
+		if (GetAsyncKeyState(VK_NUMPAD3) == KeyDOWN)
+		{
+			val.localPlayer = MemClass.readMem<DWORD>(val.gameModule + offset.localplayer);
+			DWORD clientbase = MemClass.readMem<DWORD>(val.dwengine + offset.dwclientstate); //client state?
+			vector localangles = MemClass.readMem<vector>(clientbase + offset.dwClientState_ViewAngles); //ACTUALLY GETS THE X AND Y ANGLES YAY
+			vector localplayerpos = MemClass.readMem<vector>(val.localPlayer + offset.m_vecViewOffset); //works
+			std::cout << "[OFFSETS] refreshed memory addresses" << std::endl;
+		}
+		//TOGGLE AIMBOT ON AND OFF
+		if (GetAsyncKeyState(VK_NUMPAD9) & 1)
+		{
+			if (val.aimtog == true)
+			{
+				std::cout << "[AIMBOT] Aimbot turned OFF" << std::endl;
+				val.aimtog = false;
+			}
+			else
+			{
+				std::cout << "[AIMBOT] Aimbot turned ON" << std::endl;
+				val.aimtog = true;
 			}
 		}
+		//CLOSE AND HIDE APPLICATION
+		if (GetAsyncKeyState(VK_NUMPAD1) == KeyDOWN)
+		{
+			std::cout << "closing" << std::endl; //debugger
+			HWND console = GetConsoleWindow(); //possibly get the HWND of current window to prevent name changes
+			SetWindowText(console, TEXT("closing application")); //set window text just as a check? 9.11.19
+			exit(EXIT_SUCCESS);
+			Sleep(1000);
+			ShowWindow(console, 1);
+		}
 
-	}
-	
-	//TRIGGERBOT
-	if (GetAsyncKeyState(KEY_C) == KeyDOWN)
-	{
-		val.myteam = MemClass.readMem<int>(val.localPlayer + offset.team);
-		handleTBot();
 
-	}
-	//reset aimbot values when letting go of our key.
-	//if (GetAsyncKeyState(KEY_Z) == KeyUP)
-	//{
-		//val.bestentity = 0; //possibly redundant?
-		//val.distance = 10000; //redundant?
-	//}
+		/* AIMBOT
+		if (GetAsyncKeyState(KEY_Z) == KeyDOWN)
+		{
+			if (val.aimtog == true)
+			{
+				GetClosest(10);
+				DWORD playr = val.bestentity;
+				aimatplayer(playr, 0.5f);
+				val.distance = 10000;
+				//reset distance before analyzing new entity
+			}
+			if (val.silentaim == true)
+			{
+				GetClosest(10);
+				DWORD playa = val.bestentity;
+				silentaimatplayer(playa, 0.5f);
+				val.distance = 10000;
+			}
+		}
+		*/
+		//NO FLASH TOGGLE
+		int flashDur = 0;
+		flashDur = MemClass.readMem<int>(val.localPlayer + offset.flashduration);
 
-	//refresh
-	if (GetAsyncKeyState(VK_NUMPAD3) == KeyDOWN)
-	{
-		val.localPlayer = MemClass.readMem<DWORD>(val.gameModule + offset.localplayer);
-		DWORD clientbase = MemClass.readMem<DWORD>(val.dwengine + offset.dwclientstate); //client state?
-		vector localangles = MemClass.readMem<vector>(clientbase + offset.dwClientState_ViewAngles); //ACTUALLY GETS THE X AND Y ANGLES YAY
-		vector localplayerpos = MemClass.readMem<vector>(val.localPlayer + offset.m_vecViewOffset); //works
-		std::cout << "[OFFSETS] refreshed memory addresses" << std::endl;
-	}
-	//TOGGLE AIMBOT ON AND OFF
-	if (GetAsyncKeyState(VK_NUMPAD9) & 1)
-	{
-		if (val.aimtog == true)
+		if (GetAsyncKeyState(VK_NUMPAD8) & 1) //NO FLASH CHECK 
 		{
-			std::cout << "[AIMBOT] Aimbot turned OFF" << std::endl;
-			val.aimtog = false;
+			if (val.togglenoflash == true) //actually works in reverse, when boolean returns true, you set to false and turn off
+			{ //re-assign entity to struct. 
+				std::cout << "[NO FLASH] no flash turned off" << std::endl;
+				val.togglenoflash = false;
+			}
+			else
+			{
+				std::cout << "[NO FLASH] no flash turned on" << std::endl;
+				val.togglenoflash = true;
+			}
 		}
-		else
+		if (flashDur > 0 && val.togglenoflash == true)
 		{
-			std::cout << "[AIMBOT] Aimbot turned ON" << std::endl;
-			val.aimtog = true;
+			MemClass.writeMem<int>(val.localPlayer + offset.flashduration, 0);
 		}
-	}
-	//CLOSE AND HIDE APPLICATION
-	if (GetAsyncKeyState(VK_NUMPAD1) == KeyDOWN)
-	{
-		std::cout << "closing" << std::endl; //debugger
-		HWND console = GetConsoleWindow(); //possibly get the HWND of current window to prevent name changes
-		SetWindowText(console, TEXT("closing application")); //set window text just as a check? 9.11.19
-		exit(EXIT_SUCCESS);
-		Sleep(1000);
-		ShowWindow(console, 1);
-	}
-	
-	
-	/* AIMBOT
-	if (GetAsyncKeyState(KEY_Z) == KeyDOWN)
-	{
-		if (val.aimtog == true)
-		{
-			GetClosest(10);
-			DWORD playr = val.bestentity;
-			aimatplayer(playr, 0.5f);
-			val.distance = 10000;
-			//reset distance before analyzing new entity
-		}
-		if (val.silentaim == true)
-		{
-			GetClosest(10);
-			DWORD playa = val.bestentity;
-			silentaimatplayer(playa, 0.5f);
-			val.distance = 10000;
-		}
-	}
-	*/
-	//NO FLASH TOGGLE
-	int flashDur = 0;
-	flashDur = MemClass.readMem<int>(val.localPlayer + offset.flashduration);
-
-	if (GetAsyncKeyState(VK_NUMPAD8) & 1) //NO FLASH CHECK 
-	{
-		if (val.togglenoflash == true) //actually works in reverse, when boolean returns true, you set to false and turn off
-		{ //re-assign entity to struct. 
-			std::cout << "[NO FLASH] no flash turned off" << std::endl;
-			val.togglenoflash = false;
-		}
-		else
-		{
-			std::cout << "[NO FLASH] no flash turned on" << std::endl;
-			val.togglenoflash = true;
-		}
-	}
-	if (flashDur > 0 && val.togglenoflash == true)
-	{
-		MemClass.writeMem<int>(val.localPlayer + offset.flashduration, 0);
-	}
-	//BUNNY HOP
-	val.flag = MemClass.readMem<BYTE>(val.localPlayer + offset.flags); //set flags condition
+		//BUNNY HOP
+		val.flag = MemClass.readMem<BYTE>(val.localPlayer + offset.flags); //set flags condition
 
 		if (GetAsyncKeyState(VK_SPACE) && val.flag && canbhop() & (1 << 0)) //check for space bar
 			MemClass.writeMem<DWORD>(val.gameModule + offset.forcejump, 6); //force jump
-	Sleep(.1); //loop so we dont crash value changed from (1) to (.8) 8.26.19 changed to .1  9.6.19
-}
-	return 0;	
+		Sleep(.1); //loop so we dont crash value changed from (1) to (.8) 8.26.19 changed to .1  9.6.19
+	}
+	return 0;
 }
