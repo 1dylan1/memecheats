@@ -10,6 +10,7 @@
 //#include<d3dx9.h>
 #include<xmmintrin.h>
 #define PI 3.14159265359f
+//#define ERROR -1
 /*
 D3DXVECTOR3 ClampAngles(D3DXVECTOR3 angle)
 {
