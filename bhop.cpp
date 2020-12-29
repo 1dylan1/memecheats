@@ -5,7 +5,7 @@
 #include<math.h>
 #include<cstdlib>
 #include<d3d9.h>
-#include<fcntl.h>
+//#include<fcntl.h>
 #include<string>
 // #include<d3dx9.h>
 #include<xmmintrin.h>
