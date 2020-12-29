@@ -1,3 +1,2 @@
 # memecheats
-live on twitch #1 ranked doomfist
-
+Updated offsets from 12/28/20
