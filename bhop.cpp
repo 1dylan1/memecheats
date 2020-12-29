@@ -364,7 +364,7 @@ int main()
 			ShowWindow(console, 1);
 		}
 
-
+			//remove this feature later, or fix the d3d9.dll file
 		/* AIMBOT
 		if (GetAsyncKeyState(KEY_Z) == KeyDOWN)
 		{
