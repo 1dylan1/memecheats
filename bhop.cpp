@@ -5,7 +5,7 @@
 #include<math.h>
 #include<cstdlib>
 #include<d3d9.h>
-//#include<fcntl.h>
+#include<fcntl.h>
 #include<string>
 // #include<d3dx9.h>
 #include<xmmintrin.h>
@@ -161,7 +161,7 @@ void settbdelay(float distance)
 	case 7: delay = 3.3; break; //ak47
 	case 40: delay = 0; break; //scout
 	case 9: delay = 0; break; //awp
-	case 1: delay = 0.01; break; //deagle (headshots only config)
+	case 1: delay = 0.01; break; //deagle (headshots only)
 	case 38: delay = 1.5; break; //scar
 	case 16: delay = 3; break; //m4a4
 	case 11: delay = 2; break; //g3 (T auto sniper)
@@ -238,7 +238,13 @@ int main()
 	bool togglefakelag = false;
 	bool togglesp = false;
 	//INITIAL VALUES
-	system("start C:\\Windows\\memecheatspkg\\settings.exe");
+	int settings_check = 0;
+	std::cout << "\nWould you like to run settings?\n";
+	std::cout << "Enter 1 for yes, 0 for no.\n";
+	std::cin >> settings_check;
+	if (settings_check == 1) {
+		system("start C:\\Windows\\memecheatspkg\\settings.exe");
+	}
 	val.process = MemClass.getProcess("csgo.exe"); //process
 	val.gameModule = MemClass.getModule(val.process, "client.dll"); //get module(dll) from process
 	val.localPlayer = MemClass.readMem<DWORD>(val.gameModule + offset.localplayer); //get the localplayer by addding offset to the game
@@ -364,7 +370,7 @@ int main()
 			ShowWindow(console, 1);
 		}
 
-			//remove this feature later, or fix the d3d9.dll file
+
 		/* AIMBOT
 		if (GetAsyncKeyState(KEY_Z) == KeyDOWN)
 		{
